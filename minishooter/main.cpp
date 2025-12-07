@@ -7,14 +7,14 @@
 
 using namespace sf;
 
-// ------ НОРМАЛІЗАЦІЯ ВЕКТОРА ------
+
 Vector2f normalize(Vector2f v) {
     float length = sqrt(v.x * v.x + v.y * v.y);
     if (length == 0) return Vector2f(0, 0);
     return v / length;
 }
 
-// ------ СТРУКТУРА КУЛІ ------
+
 struct Bullet {
     CircleShape shape;
     Vector2f direction;
@@ -32,7 +32,7 @@ struct Bullet {
     }
 };
 
-// ------ СТРУКТУРА ВОРОГА ------
+
 struct Enemy {
     RectangleShape shape;
     Vector2f direction;
@@ -50,7 +50,7 @@ struct Enemy {
     }
 };
 
-// ------ ПРОТОТИПИ ------
+
 void Update(int &keyTime, CircleShape &player, RenderWindow &window);
 void Draw(RenderWindow &window, CircleShape &player, std::vector<Bullet> &bullets, std::vector<Enemy> &enemies);
 
@@ -102,7 +102,7 @@ int main() {
             shootTimer = 0;
         }
 
-        // ------- ОНОВЛЕННЯ КУЛЬ -------
+    
         for (int i = 0; i < bullets.size(); i++) {
             bullets[i].update();
 
@@ -114,7 +114,7 @@ int main() {
             }
         }
 
-        // ------- СПАВН ВОРОГІВ -------
+        
         if (enemySpawnTimer < 40)
             enemySpawnTimer++;
         else {
@@ -134,12 +134,12 @@ int main() {
             enemies.push_back(Enemy(pos, dir));
         }
 
-        // ------- ОНОВЛЕННЯ ВОРОГІВ -------
+
         for (int i = 0; i < enemies.size(); i++) {
             enemies[i].update();
         }
 
-        // ------- КОЛІЗІЇ КУЛЯ - ВОРОГ -------
+    
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = 0; j < bullets.size(); j++) {
 
@@ -159,7 +159,7 @@ int main() {
     return 0;
 }
 
-// ------ РУХ ГРАВЦЯ ------
+
 void Update(int &keyTime, CircleShape &player, RenderWindow &window) {
     if (keyTime < 8)
         keyTime++;
@@ -184,7 +184,6 @@ void Update(int &keyTime, CircleShape &player, RenderWindow &window) {
         player.move(0, speed);
 }
 
-// ------ МАЛЮВАННЯ ------
 void Draw(RenderWindow &window, CircleShape &player, std::vector<Bullet> &bullets, std::vector<Enemy> &enemies) {
     window.clear(Color::Black);
 
